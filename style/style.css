@@ -1,4 +1,4 @@
-@import url(fonts.css);
+@import 'fonts.css';
 
 * {
     margin: 0;
@@ -9,18 +9,16 @@
 }
 
 .container {
-    max-width: 1110px;
+    max-width: 1130px;
     width: 100%;
     margin: 0 auto;
+    padding: 0 15px;
 }
 
 /* HEADER START */
 
 .header {
-    background: url(../images/header-bg.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    background: url(../images/header-bg.jpg) center / cover;
     height: 500px;
     display: flex;
     flex-direction: column;
@@ -87,6 +85,10 @@
     font-family: 'Roboto-Bold';
 }
 
+.burger-menu {
+    display: none;
+}
+
 /* HEADER END */
 
 /* MAIN START */
@@ -105,10 +107,10 @@
     bottom: 30px;
 }
 
-    .main__content-card:nth-of-type(1) {
-        grid-row: span 2;
-        grid-column: span 2;
-    }
+.main__content-card:nth-child(1){
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+}
 
 .main__content-card {
     padding: 15px;
@@ -120,7 +122,7 @@
 }   
 
 .main__card-img {
-    display: block;
+    width: 100%;
 }
 
 .main__card-title {
@@ -244,13 +246,6 @@
 /* MEDIA START */
 
 @media (max-width: 1060px) {
-    .main__content {
-        max-width: 1055px;
-        width: 100%;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        grid-gap: 20px;
-    }
     .left__card-description {
         max-width: 550px;
         width: 100%;
@@ -261,45 +256,91 @@
 }
 @media (max-width:960px) {
     .navbar {
-        justify-content: space-evenly;
+        justify-content: space-between;
+    }
+
+    .main__content {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media (max-width:800px) {
-
-    .main__content {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(4, 1fr);
-        grid-gap: 10px;
+@keyframes anim {
+    0% {
+      transform: translateX(100%);
     }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+@media (max-width:800px) {
+    .nav {
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+    }
+    .header-lists {
+        position: absolute;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 50px;
+        top: 0;
+        right: 0;
+        width: 60vw;
+        height: 100vh;
+        background: #322E41;
+        transition: all .4s;
+        animation: anim .6s;
+    }
+
+    .active {
+        display: flex;
+    }
+
+    .header-link {
+        padding: 0;
+    }
+
+    .header-link:hover {
+        background: inherit;
+    }
+
+    .burger-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    .burger-line {
+        height: 3px;
+        width: 30px;
+        background: #FFFFFF;
+    }
+
+    .burger-line:nth-child(1){
+        width: 13px;
+    }
+
+    .burger-line:nth-child(2){
+        width: 22px;
+    }
+
     .footer__content {
         justify-content: space-around;
     }
 }
 @media (max-width:760px) {
-    .nav {
-        padding-bottom: 24px;
-    }
-    .navbar {
-        flex-wrap: wrap;
+    .main__content {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 @media (max-width:650px) {
     .header-lists {
-        display: flex;
-        flex-wrap: wrap;
-    }
-    .header-link{
-        padding: 12px 8px;
-    }
-    .main__content {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        grid-gap: 10px;
-    }
-    .main__card-img {
-        width: 100%;
-        max-width: 500px;
+        width: 100vw;   
     }
     .right__card-img {
         max-width: 85px;
@@ -319,19 +360,17 @@
     }
 }
 @media (max-width:570px) {
-    .nav {
-        padding-bottom: 0;
-        max-height: 150px;
-        height: 100%;
-    }
-    .header-link {
-        display: flex;
-    }
-    .header-lists {
-        justify-content: center;
-    }
     .main__content-card {
         padding: 10px;
+    }
+}
+
+@media (max-width: 500px) {
+    .main__content-card {
+        grid-column: 1 / span 2;
+    }
+    .header-content {
+        padding: 0 15px;
     }
 }
 
